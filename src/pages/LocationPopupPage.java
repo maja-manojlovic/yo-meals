@@ -19,11 +19,11 @@ public class LocationPopupPage extends BasicPage {
 	}
 	
 	public WebElement getBtnClose() {
-		return this.driver.findElement(By.className("close-btn"));
+		return this.driver.findElement(By.className("close-btn-white"));
 	} 
 	
 	public WebElement getKeyword() {
-		return this.driver.findElement(By.id("locality_keyword"));
+		return this.driver.findElement(By.xpath("//*[@id='locality_keyword']"));
 	}
 	
 	public WebElement getLocationItem(String locationName) {
@@ -42,6 +42,7 @@ public class LocationPopupPage extends BasicPage {
 	}
 
 	public void insertLocation(String locationName) {
+		this.getLocationBtn().click();
 		getKeyword().click();
 		String value = getLocationItem(locationName).getAttribute("data-value");
 		js.executeScript("arguments[0].value=arguments[1]", getLocationInput(), value);

@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,7 +11,6 @@ public class LoginPage extends BasicPage {
 
 	public LoginPage(WebDriver driver, WebDriverWait waiter, JavascriptExecutor js) {
 		super(driver, waiter, js);
-	
 	}
 
 	public WebElement getLoginBtn() {
@@ -34,9 +34,9 @@ public class LoginPage extends BasicPage {
 	}
 	
 	public void login(String username, String password) {
-		getLoginBtn().click();
-		getUsername().sendKeys(username);
-		getPassword().sendKeys(password);
+//		getLoginBtn().click();
+		getUsername().sendKeys(Keys.chord(Keys.CONTROL, "a", username));
+		getPassword().sendKeys(Keys.chord(Keys.CONTROL, "a", password));
 		getSaveLoginBtn().click();
 	}
 	
