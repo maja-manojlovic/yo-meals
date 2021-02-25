@@ -15,6 +15,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.asserts.SoftAssert;
 
 import pages.AuthPage;
 import pages.CartSummaryPage;
@@ -29,9 +30,10 @@ public abstract class BasicTest {
 	protected WebDriver driver;
 	protected WebDriverWait waiter;
 	protected JavascriptExecutor js;
+	protected SoftAssert sa;
 	
 	protected String baseUrl;
-	protected String username;
+	protected String email;
 	protected String password;
 	
 	protected LocationPopupPage locationPopupPage;
@@ -43,16 +45,17 @@ public abstract class BasicTest {
 	protected CartSummaryPage summaryPage;
 	
 	@BeforeClass
-	public void setup () {
+	public void setUp() {
 		System.setProperty("webdriver.chrome.driver",
 					"driver-lib\\chromedriver.exe");
 			
 		this.driver = new ChromeDriver ();
 		this.waiter = new WebDriverWait(driver, 30);
 		this.js = (JavascriptExecutor) driver;
+		this.sa = new SoftAssert();
 			
-		this.baseUrl = "http://demo.yo-meals.com/";
-		this.username = "customer@dummyid.com";
+		this.baseUrl = "http://demo.yo-meals.com";
+		this.email = "customer@dummyid.com";
 		this.password = "12345678a";
 		
 		this.locationPopupPage = new LocationPopupPage(driver, waiter, js);
@@ -82,7 +85,7 @@ public abstract class BasicTest {
 	}
 	
 	@AfterClass
-	public void clean () {
+	public void clean() {
 		this.driver.quit();
 		
 	}

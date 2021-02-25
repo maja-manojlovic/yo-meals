@@ -14,7 +14,7 @@ public class LocationPopupPage extends BasicPage {
 	
 	public WebElement getLocationBtn() {
 		WebElement locationButton = this.driver.findElement(By.className("location-selector"))
-					.findElement(By.tagName("a"));
+												.findElement(By.tagName("a"));
 		return locationButton;
 	}
 	
@@ -42,7 +42,6 @@ public class LocationPopupPage extends BasicPage {
 	}
 
 	public void insertLocation(String locationName) {
-		this.getLocationBtn().click();
 		getKeyword().click();
 		String value = getLocationItem(locationName).getAttribute("data-value");
 		js.executeScript("arguments[0].value=arguments[1]", getLocationInput(), value);

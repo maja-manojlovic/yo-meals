@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +12,12 @@ public class AuthPage extends BasicPage {
 
 	public AuthPage(WebDriver driver, WebDriverWait waiter, JavascriptExecutor js) {
 		super(driver, waiter, js);
-		
 	}
 
 	public WebElement getUserBtn() {
-		return this.driver.findElement(By.xpath("//*[@class='accounts-link']/ul//li[2]/a"));
+		List<WebElement> userBtns = this.driver.findElement(By.className("accounts-link"))
+												.findElements(By.tagName("li"));
+		return userBtns.get(0);
 	}
 	
 	public WebElement getMyAccountBtn() {
@@ -22,7 +25,9 @@ public class AuthPage extends BasicPage {
 	}
 	
 	public WebElement getLogoutBtn() {
-		return this.driver.findElement(By.xpath("//header//ul[2]/li[2]/a"));
+		List<WebElement> logoutBtns = this.driver.findElement(By.className("my-account-dropdown"))
+													.findElements(By.tagName("li"));
+		return logoutBtns.get(1);
 	}
 	
 	public void logout() {

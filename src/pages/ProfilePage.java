@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -50,53 +50,55 @@ public class ProfilePage extends BasicPage {
 	}
 	
 	public Select getState() {
-		WebElement selectState = this.driver.findElement(By.id("user_state_id"));
+		WebElement selectState = this.driver.findElement(By.name("user_state_id"));
 		return new Select(selectState);
 	}
 	
 	public Select getCity() {
-		WebElement selectCity = this.driver.findElement(By.id("user_city_id"));
+		WebElement selectCity = this.driver.findElement(By.id("user_city"));
 		return new Select(selectCity);
 	}
 	
 	public WebElement getSaveProfileBtn() {
-		List<WebElement> buttons = this.driver.findElements(By.name("btn_submit"));
-		return buttons.get(0);
+		List<WebElement> saveProfileBtns = this.driver.findElements(By.name("btn_submit"));
+		this.waiter.until(ExpectedConditions.elementToBeClickable(saveProfileBtns.get(0)));
+		return saveProfileBtns.get(0);
 	}
 	
-	public WebElement getCurrentPassword() {
-		return this.driver.findElement(By.name("current_password"));
-	}
-	
-	public void getUploadPhotoBtn() {
+	public void getUploadImgBtn() {
 		WebElement uploadBtn = this.driver.findElement(By.className("uploadFile-Js"));
 		js.executeScript("arguments[0].click()", uploadBtn);
 	}
 	
-	public void setProfilePhoto(String photoPath) {
-		getUploadPhotoBtn();
+	public void setProfilePhoto(String imgPath) {
+		this.getUploadImgBtn();
+		this.driver.findElement(By.xpath("//input[@type='file']")).sendKeys(imgPath);
 	}
 	
-	public void removePhoto() {
+	public void removeImg() {
 		WebElement remove = this.driver.findElement(By.className("remove"));
 		js.executeScript("arguments[0].click();", remove);
 	}
 	
-	public void editProfileInfomations(String firstName, String LastName, String email, 
-										String address, String phone, String zipCode,
-										String country, String state, String city) throws InterruptedException {
+	public void editProfileInfomations
+			(String firstName, String LastName, String address, String phone,
+			String zipCode, String country, String state, String city) throws InterruptedException {
 
-		getFirstName().sendKeys(Keys.chord(Keys.CONTROL, "a", firstName));
-		getLastName().sendKeys(Keys.chord(Keys.CONTROL, "a", LastName));
-		getEmail().sendKeys(Keys.chord(Keys.CONTROL, "a", email));
-		getAddress().sendKeys(Keys.chord(Keys.CONTROL, "a", address));
-		getPhoneNo().sendKeys(Keys.chord(Keys.CONTROL, "a", phone));
-		getZipCode().sendKeys(Keys.chord(Keys.CONTROL, "a", zipCode));
-		getCountry().selectByValue(Keys.chord(Keys.CONTROL, "a", country));
+		getFirstName().clear();
+		getFirstName().sendKeys(firstName);
+		getLastName().clear();
+		getLastName().sendKeys(LastName);
+		getAddress().clear();
+		getAddress().sendKeys(address);
+		getPhoneNo().clear();
+		getPhoneNo().sendKeys(phone);
+		getZipCode().clear();
+		getZipCode().sendKeys(zipCode);
+		getCountry().selectByVisibleText(country);
 		Thread.sleep(3000);
-		getState().selectByValue(Keys.chord(Keys.CONTROL, "a", state));
+		getState().selectByVisibleText(state);
 		Thread.sleep(3000);
-		getCity().selectByValue(Keys.chord(Keys.CONTROL, "a", city));
+		getCity().selectByVisibleText(city);
 		getSaveProfileBtn().click();
 	}
 }

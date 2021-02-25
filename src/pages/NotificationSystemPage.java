@@ -14,8 +14,8 @@ public class NotificationSystemPage extends BasicPage {
 	}
 	
 	public WebElement getMessage() {
-		return this.driver.findElement(By.xpath("//*[contains(@class,"
-	+ " 'alert--success') or contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
+		return this.driver.findElement(By.xpath("//*[contains(@class, 'alert--success') "
+				+ "or contains(@class, 'alert--danger')][contains(@style,'display: block')]"));
 	}
 	
 	public String getMessageText() {
@@ -24,8 +24,8 @@ public class NotificationSystemPage extends BasicPage {
 	
 	public void notification() {
 		WebElement notification = 
-				this.driver.findElement(By.xpath("//*[contains(@class, 'system_message')]"));
-		waiter.until(ExpectedConditions.attributeContains(notification, "style", "display: none;"));
+					this.driver.findElement(By.xpath("//*[contains(@class, 'system_message')]"));
+		this.waiter.until(ExpectedConditions.attributeContains(notification, "style", "display: none;"));
 	}
 	
 	

@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -14,7 +16,9 @@ public class LoginPage extends BasicPage {
 	}
 
 	public WebElement getLoginBtn() {
-		return this.driver.findElement(By.xpath("//*[@class='accounts-link']/ul//li[2]/a"));
+		List<WebElement> loginBtns = this.driver.findElement(By.className("accounts-link"))
+												.findElements(By.tagName("li"));
+		return loginBtns.get(1);
 	}
 	
 	public WebElement getUsername() {
@@ -34,7 +38,6 @@ public class LoginPage extends BasicPage {
 	}
 	
 	public void login(String username, String password) {
-//		getLoginBtn().click();
 		getUsername().sendKeys(Keys.chord(Keys.CONTROL, "a", username));
 		getPassword().sendKeys(Keys.chord(Keys.CONTROL, "a", password));
 		getSaveLoginBtn().click();

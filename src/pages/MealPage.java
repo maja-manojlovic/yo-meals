@@ -26,8 +26,9 @@ public class MealPage extends BasicPage {
 	
 	public void addToCart(int quantity) {
 		String qty = String.valueOf(quantity);  
-		this.driver.findElement(By.name("product_qty")).
-					sendKeys((Keys.chord(Keys.CONTROL, "a", qty )));
+		WebElement qtyField = this.driver.findElement(By.name("product_qty"));
+		qtyField.clear();
+		qtyField.sendKeys(qty);
 		this.driver.findElement(By.className("js-proceedtoAddInCart")).click();
 	} 
 	
