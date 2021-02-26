@@ -2,6 +2,9 @@ package tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -24,6 +27,7 @@ import pages.LoginPage;
 import pages.MealPage;
 import pages.NotificationSystemPage;
 import pages.ProfilePage;
+import pages.SearchResultPage;
 
 public abstract class BasicTest {
 
@@ -43,6 +47,7 @@ public abstract class BasicTest {
 	protected AuthPage authPage;
 	protected MealPage mealPage;
 	protected CartSummaryPage summaryPage;
+	protected SearchResultPage searchPage;
 	
 	@BeforeClass
 	public void setUp() {
@@ -65,6 +70,7 @@ public abstract class BasicTest {
 		this.authPage = new AuthPage (driver, waiter, js);
 		this.mealPage = new MealPage (driver, waiter, js);
 		this.summaryPage = new CartSummaryPage (driver, waiter, js);
+		this.searchPage = new SearchResultPage (driver, waiter, js);
 		
 		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
@@ -73,21 +79,22 @@ public abstract class BasicTest {
 		
 	@AfterMethod
 	public void takeScreenshoot (ITestResult test ) throws IOException {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy h-mm-s");
+	    Date date = new Date();
+	    String fileName = "img";
 		if (test.getStatus() == ITestResult.FAILURE) {
 		TakesScreenshot scrShot = ((TakesScreenshot)driver);
 		File photo = scrShot.getScreenshotAs(OutputType.FILE);
-		File location = new File ("screenshots/photo1.png");
+		File location = new File ("screenshots/" + fileName + "-" + dateFormat.format(date) + ".png");
 		FileUtils.copyFile(photo, location);
 		}
 		
-		this.driver.manage().deleteAllCookies();
-				
+		this.driver.manage().deleteAllCookies();		
 	}
 	
 	@AfterClass
 	public void clean() {
 		this.driver.quit();
-		
 	}
 }
 

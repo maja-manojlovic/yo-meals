@@ -23,7 +23,7 @@ public class LocationPopupPage extends BasicPage {
 	} 
 	
 	public WebElement getKeyword() {
-		return this.driver.findElement(By.xpath("//*[@id='locality_keyword']"));
+		return this.driver.findElement(By.name("locality_keyword"));
 	}
 	
 	public WebElement getLocationItem(String locationName) {

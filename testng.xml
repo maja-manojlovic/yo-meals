@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Yo-meals">
+    <test name="Regression">
+         <classes>
+             <class name="tests.BasicTest"/>
+             <class name="tests.MealItemTest"/>
+             <class name="tests.SearchTest"/>
+             <class name="tests.ProfileTest"/>
+             <class name="pages.BasicPage"/>
+             <class name="pages.AuthPage"/>
+             <class name="pages.CartSummaryPage"/>
+             <class name="pages.LocationPopupPage"/>
+             <class name="pages.LoginPage"/>
+             <class name="pages.MealPage"/>
+             <class name="pages.NotificationSystemPage"/>
+             <class name="pages.ProfilePage"/>
+             <class name="pages.SearchResultPage"/>
+          </classes>
+     </test> <!-- Test -->
+</suite> <!-- Suite -->

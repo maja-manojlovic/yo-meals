@@ -13,7 +13,6 @@ public class MealPage extends BasicPage {
 
 	public MealPage(WebDriver driver, WebDriverWait waiter, JavascriptExecutor js) {
 		super(driver, waiter, js);
-		
 	}
 
 	public WebElement getMealsPage() {

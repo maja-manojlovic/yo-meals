@@ -95,10 +95,14 @@ public class ProfilePage extends BasicPage {
 		getZipCode().clear();
 		getZipCode().sendKeys(zipCode);
 		getCountry().selectByVisibleText(country);
+		// By selecting country, state list have to be reloaded
 		Thread.sleep(3000);
 		getState().selectByVisibleText(state);
+		// By selecting state, city list have to be reloaded
 		Thread.sleep(3000);
 		getCity().selectByVisibleText(city);
 		getSaveProfileBtn().click();
+		
+		// 
 	}
 }

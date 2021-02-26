@@ -13,39 +13,41 @@ import org.testng.annotations.Test;
 
 public class MealItemTest extends BasicTest{
 
-	@Test
+	@Test (priority = 0)
 	public void addMealToCart() {
 		this.driver.navigate().to(this.baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
 		this.locationPopupPage.closeLocationForm();
 		this.mealPage.addToCart(2);
 		this.sa.assertTrue(this.notificationPage.getMessageText()
-												.contains("The Following Errors Occurred:"));
+				.contains("The Following Errors Occurred:"), "No error message shown.");
 		this.sa.assertTrue(this.notificationPage.getMessageText()
-												.contains("Please Select Location"));
+				.contains("Please Select Location"), "No message shown");
 		this.waiter.until(ExpectedConditions.invisibilityOf(this.notificationPage.getMessage()));
 		this.locationPopupPage.getLocationForm();
 		this.locationPopupPage.insertLocation("City Center - Albany");
 		this.mealPage.addToCart(2);
-		this.sa.assertTrue(this.notificationPage.getMessageText().contains("Meal Added To Cart"));
+		this.sa.assertTrue(this.notificationPage.getMessageText()
+				.contains("Meal Added To Cart"), "[ERROR]: Meal isn't added to cart!");
 		this.sa.assertAll();
 	} 
 	
-	@Test
+	@Test (priority = 5)
 	public void favoriteMealsTest() {
 		this.driver.navigate().to(this.baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
 		this.locationPopupPage.closeLocationForm();
 		this.mealPage.getFavoriteBtn().click();
-		this.sa.assertTrue(this.notificationPage.getMessageText().contains("Please login first!"));
+		this.sa.assertTrue(this.notificationPage.getMessageText()
+				.contains("Please login first!"), "[ERROR]: User isn't logged in.");
 		this.loginPage.getLoginBtn().click();
 		this.loginPage.login(this.email, this.password);
 		this.driver.navigate().to(this.baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
 		this.mealPage.getFavoriteBtn().click();
 		this.sa.assertTrue(this.notificationPage.getMessageText()
-											.contains("Product has been added to your favorites."));
+			.contains("Product has been added to your favorites."), "[ERROR]: Product isn't addet to favorites!");
 		this.sa.assertAll();
 	}
 	
-	@Test
+	@Test (priority = 10)
 	public void clearCartTest() throws IOException {
 		this.driver.navigate().to(this.baseUrl + "/meals");
 		this.locationPopupPage.insertLocation("City Center - Albany");
@@ -64,8 +66,8 @@ public class MealItemTest extends BasicTest{
 			
 			this.driver.navigate().to(meal);
 			this.mealPage.addToCart(quantity);
-			this.sa.assertTrue(this.notificationPage.getMessageText().contains("Meal Added To Cart"),
-																"[ERROR]: Meal isn't added to cart!");
+			this.sa.assertTrue(this.notificationPage.getMessageText()
+					.contains("Meal Added To Cart"), "[ERROR]: Meal isn't added to cart!");
 		}
 		
 		wb.close();
@@ -73,7 +75,7 @@ public class MealItemTest extends BasicTest{
 		
 		this.summaryPage.clearCart();
 		this.sa.assertTrue(this.notificationPage.getMessageText()
-				.contains("All meals removed from Cart successfully"),
-						"[ERROR]: Meals aren't removed from cart!");
+		.contains("All meals removed from Cart successfully"), "[ERROR]: Meals aren't removed from cart!");
+		this.sa.assertAll();
 	}
 }

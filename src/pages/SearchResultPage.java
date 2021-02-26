@@ -22,7 +22,7 @@ public class SearchResultPage extends BasicPage {
 	public ArrayList<String> productName() {
 		String name = "";
 		ArrayList<String> names = new ArrayList<String>();
-		for (int i = 0; i < products().size(); i++) {
+		for (int i = 0; i < products().size() - 1; i++) {
 			name = products().get(i).getText();
 			names.add(name);
 		}

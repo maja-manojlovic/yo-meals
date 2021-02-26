@@ -10,7 +10,6 @@ public class CartSummaryPage extends BasicPage {
 
 	public CartSummaryPage(WebDriver driver, WebDriverWait waiter, JavascriptExecutor js) {
 		super(driver, waiter, js);
-		
 	}
 	
 	public WebElement getClearAllBtn() {
